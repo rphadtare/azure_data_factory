@@ -1,0 +1,10 @@
+{
+	"name": "f1sgdrd_keyvault_linked_service",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://kv-f1sgdrd.vault.azure.net/"
+		}
+	}
+}
