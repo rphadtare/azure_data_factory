@@ -1,0 +1,19 @@
+{
+	"name": "f1sgdrd_stg_linked_service",
+	"properties": {
+		"description": "Connection to staging layer",
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://f1sgdrdstg.dfs.core.windows.net/",
+			"accountKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "f1sgdrd_keyvault_linked_service",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "f1sgdrd-stg-storage-account-key"
+			}
+		}
+	}
+}
