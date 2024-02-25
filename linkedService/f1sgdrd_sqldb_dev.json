@@ -1,0 +1,17 @@
+{
+	"name": "f1sgdrd_sqldb_dev",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "f1sgdrd_keyvault_linked_service",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "f1sgdrd-sqldb-connection"
+			}
+		}
+	}
+}
