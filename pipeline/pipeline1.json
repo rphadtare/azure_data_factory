@@ -1,0 +1,66 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Script1",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "f1sgdrd_sqldb_dev",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"parameters": [
+								{
+									"name": "param1",
+									"type": "Int64",
+									"value": {
+										"value": "@pipeline().parameters.productId",
+										"type": "Expression"
+									},
+									"direction": "Input"
+								},
+								{
+									"name": "param2",
+									"type": "String",
+									"value": {
+										"value": "@variables('param2')",
+										"type": "Expression"
+									},
+									"direction": "Input"
+								}
+							],
+							"type": "Query",
+							"text": "select * from SalesLT.Product where ProductId = @param1 and \nProductNumber  = @param2"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			}
+		],
+		"parameters": {
+			"productId": {
+				"type": "int",
+				"defaultValue": 706
+			}
+		},
+		"variables": {
+			"param2": {
+				"type": "String",
+				"defaultValue": "FR-R92R-58"
+			}
+		},
+		"annotations": []
+	}
+}
