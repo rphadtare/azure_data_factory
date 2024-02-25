@@ -1,0 +1,28 @@
+{
+	"name": "Test_pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Validate_Existing_Customer_Address_Data",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [
+					{
+						"name": "file_name",
+						"value": "@Validation.item()"
+					}
+				],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"timeout": "0.12:00:00",
+					"sleep": 10,
+					"childItems": true
+				}
+			}
+		],
+		"annotations": []
+	}
+}
