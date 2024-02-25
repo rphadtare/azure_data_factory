@@ -119,6 +119,17 @@
 				]
 			}
 		],
+		"variables": {
+			"childItems": {
+				"type": "Array"
+			},
+			"files": {
+				"type": "Array"
+			},
+			"filenames": {
+				"type": "Array"
+			}
+		},
 		"annotations": []
 	}
 }
