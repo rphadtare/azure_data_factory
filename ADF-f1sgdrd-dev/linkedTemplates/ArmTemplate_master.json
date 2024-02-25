@@ -1,0 +1,63 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ADF-f1sgdrd-dev"
+		},
+		"f1sgdrd_keyvault_linked_service_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-f1sgdrd.vault.azure.net/"
+		},
+		"f1sgdrd_sqldb_dev_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "f1sgdrd-sqldb-connection"
+		},
+		"f1sgdrd_stg_linked_service_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://f1sgdrdstg.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ADF-f1sgdrd-dev_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"f1sgdrd_keyvault_linked_service_properties_typeProperties_baseUrl": {
+						"value": "[parameters('f1sgdrd_keyvault_linked_service_properties_typeProperties_baseUrl')]"
+					},
+					"f1sgdrd_sqldb_dev_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('f1sgdrd_sqldb_dev_properties_typeProperties_connectionString_secretName')]"
+					},
+					"f1sgdrd_stg_linked_service_properties_typeProperties_url": {
+						"value": "[parameters('f1sgdrd_stg_linked_service_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ADF-f1sgdrd-dev"
+		},
+		"f1sgdrd_keyvault_linked_service_properties_typeProperties_baseUrl": {
+			"value": "https://kv-f1sgdrd.vault.azure.net/"
+		},
+		"f1sgdrd_sqldb_dev_properties_typeProperties_connectionString_secretName": {
+			"value": "f1sgdrd-sqldb-connection"
+		},
+		"f1sgdrd_stg_linked_service_properties_typeProperties_url": {
+			"value": "https://f1sgdrdstg.dfs.core.windows.net/"
+		}
+	}
+}
