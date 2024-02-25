@@ -19,6 +19,10 @@
 			"type": "string",
 			"defaultValue": "https://f1sgdrdstg.dfs.core.windows.net/"
 		},
+		"trigger1_properties_pipeline_parameters_productId": {
+			"type": "int",
+			"defaultValue": 706
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -54,6 +58,9 @@
 					},
 					"f1sgdrd_stg_linked_service_properties_typeProperties_url": {
 						"value": "[parameters('f1sgdrd_stg_linked_service_properties_typeProperties_url')]"
+					},
+					"trigger1_properties_pipeline_parameters_productId": {
+						"value": "[parameters('trigger1_properties_pipeline_parameters_productId')]"
 					}
 				}
 			},

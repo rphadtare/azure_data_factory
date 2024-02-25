@@ -14,6 +14,9 @@
 		"f1sgdrd_stg_linked_service_properties_typeProperties_url": {
 			"value": "https://f1sgdrdstg.dfs.core.windows.net/"
 		},
+		"trigger1_properties_pipeline_parameters_productId": {
+			"value": 706
+		},
 		"containerUri": {
 			"value": ""
 		},
