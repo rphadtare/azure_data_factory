@@ -23,7 +23,7 @@
 				}
 			},
 			{
-				"name": "ForEach Notifications",
+				"name": "ForEach1",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -36,7 +36,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('CheckNotifications').output'runOutput'.split(\",\")",
+						"value": "@split(activity('CheckNotifications').output.runOutput, ',')",
 						"type": "Expression"
 					},
 					"activities": [
@@ -55,6 +55,39 @@
 									"value": "@item()",
 									"type": "Expression"
 								}
+							}
+						},
+						{
+							"name": "IngestionJob",
+							"type": "DatabricksNotebook",
+							"dependsOn": [
+								{
+									"activity": "Set variable1",
+									"dependencyConditions": [
+										"Completed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/poojadesai902@outlook.com/mdl-pipeline/IngestionJob",
+								"baseParameters": {
+									"cob_date": {
+										"value": "@variables('cob_date')",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureDatabricksDevLinkedService",
+								"type": "LinkedServiceReference"
 							}
 						}
 					]
