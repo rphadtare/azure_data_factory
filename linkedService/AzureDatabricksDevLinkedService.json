@@ -1,0 +1,19 @@
+{
+	"name": "AzureDatabricksDevLinkedService",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-3145919909738697.17.azuredatabricks.net",
+			"accessToken": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "f1sgdrd_keyvault_linked_service",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "f1sgdrd-databricks-dev-token"
+			},
+			"existingClusterId": "0225-230831-o87vdpbq"
+		}
+	}
+}
