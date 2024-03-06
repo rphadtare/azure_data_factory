@@ -16,6 +16,9 @@
 		},
 		"trigger1_properties_pipeline_parameters_productId": {
 			"value": 706
+		},
+		"AzureDatabricksDevLinkedService_properties_typeProperties_existingClusterId": {
+			"value": "0225-230831-o87vdpbq"
 		}
 	}
 }

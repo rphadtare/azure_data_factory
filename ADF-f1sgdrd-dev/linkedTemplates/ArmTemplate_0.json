@@ -19,6 +19,10 @@
 			"type": "string",
 			"defaultValue": "https://f1sgdrdstg.dfs.core.windows.net/"
 		},
+		"AzureDatabricksDevLinkedService_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0225-230831-o87vdpbq"
+		},
 		"trigger1_properties_pipeline_parameters_productId": {
 			"type": "int",
 			"defaultValue": 706
@@ -81,6 +85,30 @@
 						},
 						"secretName": "f1sgdrd-stg-storage-account-key"
 					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/f1sgdrd_keyvault_linked_service')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricksDevLinkedService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-3145919909738697.17.azuredatabricks.net",
+					"accessToken": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "f1sgdrd_keyvault_linked_service",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "f1sgdrd-databricks-dev-token"
+					},
+					"existingClusterId": "[parameters('AzureDatabricksDevLinkedService_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": [
@@ -233,6 +261,119 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/f1sgdrd_stg_linked_service')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/IngestionJob')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "CheckNotifications",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/poojadesai902@outlook.com/mdl-pipeline/ParameterExist"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricksDevLinkedService",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "CheckNotifications",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@split(activity('CheckNotifications').output.runOutput, ',')",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Set variable1",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "cob_date",
+										"value": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "IngestionJob",
+									"type": "DatabricksNotebook",
+									"dependsOn": [
+										{
+											"activity": "Set variable1",
+											"dependencyConditions": [
+												"Completed"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/poojadesai902@outlook.com/mdl-pipeline/DqAggregationSpark",
+										"baseParameters": {
+											"cob_date": {
+												"value": "@variables('cob_date')",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricksDevLinkedService",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"variables": {
+					"cob_date": {
+						"type": "String"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricksDevLinkedService')]"
 			]
 		},
 		{
