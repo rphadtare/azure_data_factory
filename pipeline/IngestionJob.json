@@ -1,0 +1,71 @@
+{
+	"name": "IngestionJob",
+	"properties": {
+		"activities": [
+			{
+				"name": "CheckNotifications",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/poojadesai902@outlook.com/mdl-pipeline/ParameterExist"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricksDevLinkedService",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "ForEach Notifications",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "CheckNotifications",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('CheckNotifications').output'runOutput'.split(\",\")",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "cob_date",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"cob_date": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
