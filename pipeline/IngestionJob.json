@@ -78,7 +78,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"notebookPath": "/Users/poojadesai902@outlook.com/mdl-pipeline/IngestionJob",
+								"notebookPath": "/Users/poojadesai902@outlook.com/mdl-pipeline/DqAggregationSpark",
 								"baseParameters": {
 									"cob_date": {
 										"value": "@variables('cob_date')",
