@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "f1sgdrd-adf-dev"
+		},
+		"AzureBlobStorage2_properties_typeProperties_serviceEndpoint": {
+			"value": "https://f1sgdrdstg.blob.core.windows.net/"
+		},
+		"AzureBlobStorage3_bronze_properties_typeProperties_serviceEndpoint": {
+			"value": "https://f1sgdrdstg.blob.core.windows.net/"
+		},
+		"AzureDatabricksDevLinkedService_properties_typeProperties_existingClusterId": {
+			"value": "0225-230831-o87vdpbq"
+		},
+		"f1sgdrd_keyvault_linked_service_properties_typeProperties_baseUrl": {
+			"value": "https://kv-f1sgdrd.vault.azure.net/"
+		},
+		"f1sgdrd_sqldb_dev_properties_typeProperties_connectionString_secretName": {
+			"value": "f1sgdrd-sqldb-connection"
+		},
+		"f1sgdrd_stg_linked_service_properties_typeProperties_url": {
+			"value": "https://f1sgdrdstg.dfs.core.windows.net/"
+		},
+		"trigger1_properties_pipeline_parameters_productId": {
+			"value": 706
+		}
+	}
+}
