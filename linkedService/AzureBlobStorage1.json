@@ -5,6 +5,7 @@
 		"type": "AzureBlobStorage",
 		"typeProperties": {
 			"serviceEndpoint": "https://f1sgdrdstg.blob.core.windows.net/",
+			"accountKind": "StorageV2",
 			"credential": {
 				"referenceName": "f1sgdrd-dev-managed-indentity",
 				"type": "CredentialReference"
