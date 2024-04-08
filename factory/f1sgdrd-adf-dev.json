@@ -1,0 +1,9 @@
+{
+	"name": "f1sgdrd-adf-dev",
+	"location": "switzerlandnorth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6310cb54-a216-4239-a84b-ba3cde2a0d3f",
+		"tenantId": "d363c540-a6fe-482e-8941-09d9573b3a2d"
+	}
+}
